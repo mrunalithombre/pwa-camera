@@ -9,81 +9,40 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 
-
-
 <body>
 	<div class="d-flex justify-content-center align-items-end pb-5 gap-3 vh-100">
 
+
 		<button id="start" type="button" class="btn btn-lg btn-primary">Start Camera</button>
-		<button id="capture" type="button" class="d-none btn btn-lg btn-primary"> Capture <i
-				class="bi bi-camera-fill"></i></button>
-		<button id="close" type="button" class="d-none btn btn-lg btn-danger"> Close <i
-				class="bi bi-telephone-x"></i></button>
+
+		<button id="capture" type="button" class="d-none btn btn-lg btn-primary">
+			Capture
+			<i class="bi bi-camera"></i>
+		</button>
+		<button id="restart" type="button" class=" d-none btn  btn-lg btn-warning">
+			Restart
+		</button>
+
+		<button id="close" type="button" class="d-none btn btn-lg btn-danger">
+			Close
+			<i class="bi bi-telephone-x"></i>
+		</button>
+
 	</div>
 	<div class="position-absolute top-50 start-50 translate-middle">
 		<div id="loader" class="d-flex align-items-center gap-2"></div>
 		<video height="200" autoplay controls id="player" class="d-none"></video>
+
+		<canvas class="d-none" id="canvas" height="200px" width="300px"></canvas>
+
 	</div>
-	<script>
-		const startBtn = document.getElementById("start")
-		const captureBtn = document.getElementById("capture")
-		const closeBtn = document.getElementById("close")
-		const player = document.getElementById("player")
 
-		startBtn.addEventListener("click", async () => {
-			console.log("start button clicked")
-
-			//handleCamera Start
-			if (navigator.mediaDevices) {
-				document.getElementById("loader").innerHTML =
-					`Opening Camera <div class="spinner-border text-dark"></div>`
-
-				startBtn.setAttribute("disabled", true)
-				const x = await navigator.mediaDevices.getUserMedia({
-					video: {
-						facingMode: {
-							exact: "environment"
-						}
-					}
-					// facingMode:"user"
-
-				})
-				player.srcObject = x
-				document.getElementById("loader").innerHTML = ""
-				startBtn.removeAttribute("disabled")
-				// const x = await navigator.mediaDevices.getUserMedia({ video: true })
-				// .then(x =>)
-			} else {
-				console.error("mediaDevices not supported");
-			}
-			//handleCamera end
-
-			//player.srcObject = "./1.mb.mp4"
-			// player.setAttribute("src", "./1.mp4")
-
-			captureBtn.classList.remove("d-none")
-			closeBtn.classList.remove("d-none")
-			startBtn.classList.add("d-none")
-			player.classList.remove("d-none")
-		})
-		captureBtn.addEventListener("click", () => {
-			console.log("capture button clicked")
-			// console.log("Opening Camera")
-		})
-		closeBtn.addEventListener("click", () => {
-			console.log("close button clicked")
-
-			console.log(player.srcObject.getVideoTracks())
-			const tracks = player.srcObject.getVideoTracks()
-			for (let i = 0; i < tracks.length; i++) {
-				tracks[i].stop()
-			}
-			captureBtn.classList.add("d-none")
-			closeBtn.classList.add("d-none")
-			startBtn.classList.remove("d-none")
-			player.classList.add("d-none")
-		})
-	</script>
+	<div class="position-absolute " style="top:50px;right: 50px;">
+		<button id="switchCamera" type="button" class="btn btn-outline-primary btn-lg d-none">
+			<i class="bi bi-camera2"></i>
+		</button>
+	</div>
+	<script src="./assets/app.js" type="module"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
