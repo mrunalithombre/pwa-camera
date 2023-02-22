@@ -6,8 +6,15 @@ import {
 	restartBtn,
 	startBtn,
 	switchBtn,
-	mode
+
 } from "./constant.js"
+
+let mode = "user"
+
+export const changeMode = () => {
+	mode = mode === "user" ? "environment" : "user"
+
+}
 
 export const closeCamera = () => {
 
